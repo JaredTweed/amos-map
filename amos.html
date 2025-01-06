@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Amos Map by Chapters</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      display: flex;
+      height: 100%;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    #tabs {
+      display: flex;
+      /* margin-bottom: 10px; */
+      cursor: pointer;
+      overflow: scroll;
+    }
+
+    .tab {
+      padding: 10px;
+      background: #f1f1f1;
+      border: 1px solid #ccc;
+      border-bottom: none;
+    }
+
+    .tab.active {
+      background: #fff;
+      font-weight: bold;
+    }
+
+    .map-container {
+      display: none;
+      flex: 1;
+      margin: 0;
+      padding: 0;
+    }
+
+    .map-container.active {
+      display: block;
+      height: 100%;
+    }
+
+    .map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="tabs">
+    <div class="tab active" data-map="chapter1">Chapter 1</div>
+    <div class="tab" data-map="chapter2">Chapter 2</div>
+    <div class="tab" data-map="chapter3">Chapter 3</div>
+    <div class="tab" data-map="chapter4">Chapter 4</div>
+    <div class="tab" data-map="chapter5">Chapter 5</div>
+    <div class="tab" data-map="chapter6">Chapter 6</div>
+    <div class="tab" data-map="chapter7">Chapter 7</div>
+    <div class="tab" data-map="chapter8">Chapter 8</div>
+    <div class="tab" data-map="chapter9">Chapter 9</div>
+  </div>
+
+  <div id="chapter1" class="map-container active">
+    <div id="map1" class="map"></div>
+  </div>
+  <div id="chapter2" class="map-container">
+    <div id="map2" class="map"></div>
+  </div>
+  <div id="chapter3" class="map-container">
+    <div id="map3" class="map"></div>
+  </div>
+  <div id="chapter4" class="map-container">
+    <div id="map4" class="map"></div>
+  </div>
+  <div id="chapter5" class="map-container">
+    <div id="map5" class="map"></div>
+  </div>
+  <div id="chapter6" class="map-container">
+    <div id="map6" class="map"></div>
+  </div>
+  <div id="chapter7" class="map-container">
+    <div id="map7" class="map"></div>
+  </div>
+  <div id="chapter8" class="map-container">
+    <div id="map8" class="map"></div>
+  </div>
+  <div id="chapter9" class="map-container">
+    <div id="map9" class="map"></div>
+  </div>
+
+  <script>
+    // Utility function to initialize a map with given places
+    function initializeMap(mapId, places) {
+      var map = L.map(mapId).setView([32.0, 35.0], 6);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+
+      places.forEach(function (place) {
+        L.tooltip({
+          permanent: true, // Always visible
+          direction: "center", // Centered on the location
+          className: "map-tooltip" // Custom class for styling
+        })
+          .setLatLng([place.lat, place.lon]) // Set the coordinates of the tooltip
+          .setContent(place.name) // Set the text content of the tooltip
+          .addTo(map); // Add the tooltip to the map
+      });
+
+      return map; // Return the map instance for further use
+    }
+
+    // Already defined for chapter 1:
+    var chapter1Places = [
+      { name: "Tekoa", lat: 31.654, lon: 35.245 },
+      { name: "Zion (Jerusalem)", lat: 31.7767, lon: 35.2345 },
+      { name: "Mount Carmel", lat: 32.6667, lon: 35.1 },
+      { name: "Damascus", lat: 33.5138, lon: 36.2765 },
+      { name: "Gilead", lat: 32.3, lon: 35.7 },
+      { name: "Gaza", lat: 31.5, lon: 34.4667 },
+      { name: "Ashdod", lat: 31.8014, lon: 34.6434 },
+      { name: "Ashkelon", lat: 31.6693, lon: 34.5715 },
+      { name: "Ekron", lat: 31.8542, lon: 34.8318 },
+      { name: "Tyre", lat: 33.2707, lon: 35.2038 },
+      { name: "Edom (Petra)", lat: 30.3285, lon: 35.4444 },
+      { name: "Teman", lat: 30.8333, lon: 35.5833 },
+      { name: "Bozrah", lat: 30.7333, lon: 35.5833 },
+      { name: "Ammon (Rabbah)", lat: 31.9500, lon: 35.9333 },
+      { name: "Kir", lat: 35.5, lon: 35.5 },
+      { name: "Beth-eden", lat: 34.0, lon: 36.0 },
+      { name: "Valley of Aven", lat: 33.5, lon: 36.0 }
+    ];
+
+    // ----------------------------------------------------
+    // Chapter 2
+    // Places mentioned: Moab, Kerioth, Judah, Jerusalem, Israel
+    // ----------------------------------------------------
+    var chapter2Places = [
+      { name: "Moab", lat: 31.3667, lon: 35.7333 },
+      { name: "Kerioth", lat: 31.3500, lon: 35.5667 },
+      { name: "Judah", lat: 31.6667, lon: 35.3333 },
+      { name: "Jerusalem", lat: 31.7767, lon: 35.2345 },
+      { name: "Israel", lat: 32.0, lon: 35.0 }
+    ];
+
+    // ----------------------------------------------------
+    // Chapter 3
+    // Places mentioned: Israel, Egypt, Philistia, Samaria, Bethel
+    // ----------------------------------------------------
+    var chapter3Places = [
+      { name: "Israel", lat: 32.0, lon: 35.0 },
+      { name: "Egypt", lat: 26.0, lon: 30.0 }, // general center of Egypt
+      { name: "Philistia", lat: 31.5, lon: 34.4 }, // general area along SW coast
+      { name: "Samaria", lat: 32.2206, lon: 35.2739 },
+      { name: "Bethel", lat: 31.9314, lon: 35.2209 }
+    ];
+
+    // In any graph, the number g vertices with an odd degree must be even. Handshaking lemma (when people shake hands, the number of hands is even).
+
+
+    // ----------------------------------------------------
+    // Chapter 4
+    // Places mentioned: Samaria, Bethel, Gilgal, Egypt
+    // ----------------------------------------------------
+    var chapter4Places = [
+      { name: "Samaria", lat: 32.2206, lon: 35.2739 },
+      { name: "Bethel", lat: 31.9314, lon: 35.2209 },
+      { name: "Gilgal", lat: 31.8667, lon: 35.4167 },
+      { name: "Egypt", lat: 26.0, lon: 30.0 }
+    ];
+
+    // ----------------------------------------------------
+    // Chapter 5
+    // Places mentioned: Israel, Bethel, Gilgal, Beersheba
+    // ----------------------------------------------------
+    var chapter5Places = [
+      { name: "Israel", lat: 32.0, lon: 35.0 },
+      { name: "Bethel", lat: 31.9314, lon: 35.2209 },
+      { name: "Gilgal", lat: 31.8667, lon: 35.4167 },
+      { name: "Beersheba", lat: 31.2714, lon: 34.8061 }
+    ];
+
+    // ----------------------------------------------------
+    // Chapter 6
+    // Places mentioned: Zion (Jerusalem), Samaria, Israel, 
+    //                   Calneh, Hamath, Gath
+    // ----------------------------------------------------
+    var chapter6Places = [
+      { name: "Zion (Jerusalem)", lat: 31.7767, lon: 35.2345 },
+      { name: "Samaria", lat: 32.2206, lon: 35.2739 },
+      { name: "Israel", lat: 32.0, lon: 35.0 },
+      { name: "Calneh", lat: 36.5, lon: 37.0 }, // approximate (N Syria/Mesopotamia)
+      { name: "Hamath", lat: 35.1333, lon: 36.75 }, // modern Hama, Syria
+      { name: "Gath", lat: 31.7041, lon: 34.8407 }
+    ];
+
+    // ----------------------------------------------------
+    // Chapter 7
+    // Places mentioned: Israel, Bethel, Judah
+    // ----------------------------------------------------
+    var chapter7Places = [
+      { name: "Israel", lat: 32.0, lon: 35.0 },
+      { name: "Bethel", lat: 31.9314, lon: 35.2209 },
+      { name: "Judah", lat: 31.6667, lon: 35.3333 }
+    ];
+
+    // ----------------------------------------------------
+    // Chapter 8
+    // Places mentioned: Israel, Samaria, Dan, Beersheba
+    // ----------------------------------------------------
+    var chapter8Places = [
+      { name: "Israel", lat: 32.0, lon: 35.0 },
+      { name: "Samaria", lat: 32.2206, lon: 35.2739 },
+      { name: "Dan", lat: 33.2492, lon: 35.6524 },
+      { name: "Beersheba", lat: 31.2714, lon: 34.8061 }
+    ];
+
+    // ----------------------------------------------------
+    // Chapter 9
+    // Key references include: Israel, Mount Carmel, Ethiopia (Cush),
+    // Egypt, Philistines, Caphtor (Crete), Arameans (Aram), Kir, Edom
+    // ----------------------------------------------------
+    var chapter9Places = [
+      { name: "Israel", lat: 32.0, lon: 35.0 },
+      { name: "Mount Carmel", lat: 32.6667, lon: 35.1 },
+      { name: "Ethiopia (Cush)", lat: 8.9806, lon: 38.7578 },
+      { name: "Egypt", lat: 26.0, lon: 30.0 },
+      { name: "Philistines", lat: 31.5, lon: 34.4 },
+      { name: "Caphtor (Crete)", lat: 35.2401, lon: 24.8093 },
+      { name: "Arameans (Aram)", lat: 34.5, lon: 38.5 }, // general region in Syria
+      { name: "Kir", lat: 35.5, lon: 35.5 },
+      { name: "Edom", lat: 30.3285, lon: 35.4444 }
+    ];
+
+    // Initialize maps for each chapter and store their instances
+    var maps = {
+      chapter1: initializeMap("map1", chapter1Places),
+      chapter2: initializeMap("map2", chapter2Places),
+      chapter3: initializeMap("map3", chapter3Places),
+      chapter4: initializeMap("map4", chapter4Places),
+      chapter5: initializeMap("map5", chapter5Places),
+      chapter6: initializeMap("map6", chapter6Places),
+      chapter7: initializeMap("map7", chapter7Places),
+      chapter8: initializeMap("map8", chapter8Places),
+      chapter9: initializeMap("map9", chapter9Places)
+    };
+
+    // Handle tab switching
+    var tabs = document.querySelectorAll('.tab');
+    var mapContainers = document.querySelectorAll('.map-container');
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        // Deactivate all tabs and containers
+        tabs.forEach(function (t) { t.classList.remove('active'); });
+        mapContainers.forEach(function (mc) { mc.classList.remove('active'); });
+
+        // Activate the selected tab and its container
+        tab.classList.add('active');
+        var container = document.getElementById(tab.dataset.map);
+        container.classList.add('active');
+
+        // Refresh the map tiles for the active map
+        var map = maps[tab.dataset.map];
+        map.invalidateSize();
+      });
+    });
+  </script>
+</body>
+
+</html>

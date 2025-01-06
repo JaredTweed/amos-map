@@ -47,6 +47,8 @@
       border: 1px solid #ccc;
       border-bottom: none;
       white-space: nowrap;
+
+      height: 35px;
     }
 
     .tab.active {
@@ -127,7 +129,7 @@
       places.forEach(function (place) {
         L.tooltip({
           permanent: true, // Always visible
-          direction: "center", // Centered on the location
+          direction: "top", // Centered on the location
           className: "map-tooltip" // Custom class for styling
         })
           .setLatLng([place.lat, place.lon]) // Set the coordinates of the tooltip
